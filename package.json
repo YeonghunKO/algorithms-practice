@@ -1,0 +1,23 @@
+{
+  "name": "algorithms_practice",
+  "version": "1.0.0",
+  "description": "practice as much as you can!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YeonghunKO/algorithms-practice.git"
+  },
+  "author": "sinkyo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YeonghunKO/algorithms-practice/issues"
+  },
+  "homepage": "https://github.com/YeonghunKO/algorithms-practice#readme",
+  "dependencies": {
+    "chroma-js": "^2.4.2",
+    "color-namer": "^1.4.0"
+  }
+}
