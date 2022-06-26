@@ -1,6 +1,3 @@
-// import chroma from 'chroma-js';
-// import namer from 'color-namer';
-
 const chroma = require('chroma-js');
 const namer = require('color-namer');
 
@@ -69,13 +66,6 @@ function smartColorGenerator(prevColor) {
   return { newColor, newName };
 }
 
-console.log(
-  smartColorGenerator({
-    name: 'SPINDLE',
-    color: 'rgb(173,211,237)',
-    locked: false,
-  })
-);
 /*
 - prevColor를 토대로 random하게 색깔을 변형시킨다.
 h/s/l중에 무엇을 살짝 변경할것인지는 랜덤하게 결정
