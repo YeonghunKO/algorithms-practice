@@ -106,6 +106,37 @@ const colorPalette = new ColorPalette();
 
 const newColors = colorPalette.autoColorsGenerator();
 console.log(newColors);
+
+/*
+- prevColor를 토대로 random하게 색깔을 변형시킨다.
+h/s/l중에 무엇을 살짝 변경할것인지는 랜덤하게 결정
+그리고 변경될 정도도 랜덤하게 결정됨
+
+1. newColor 추출
+
+1-1. hue를 변경
+- getHSLvalue를 이용해서 prev의 hue를 구한다.
+- innerRules를 이용해서 prev hue가 얼마나 변할지 랜덤하게 결정됨
+- 그리고 prevColor + 변경될 정도 를 setColor를 이용해서 변경된 color를 뽑아냄
+
+1-2. saturation을 변경
+- 변경될 정도를 0.3범위내에 결정
+- 변경될 정도와 prevColor의 sat를 합침
+- 결과가 0.1 ~ 0.9정도가 될때까지 반복
+
+1-3. light를 변경
+- 변경될 정도를 0.2범위내에 결정
+- 변경될 정도와 prevColor의 light를 합침
+- 결과가 0.2 ~ 0.95정도가 될때까지 반복
+
+2. newName 추출 
+- namer로 후보 name을 추출
+- key별로 뽑은 다음에 map을 이용해서 각각의 key에서 가장 첫번째것을 뽑아서 array로 리턴
+- array안에서 랜덤하게 name을 추출
+
+3. newName, newColor 리턴
+*/
+
 /*
 getRandom 로직
 - some함수를 써서 this.colors안에 겹치는게 없을때까지 while안에서 smartColor get하는 걸 반복한다.
