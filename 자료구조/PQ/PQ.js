@@ -22,6 +22,7 @@ class Node {
 class PriorityQueue {
   constructor() {
     this.minHeap = [];
+    this.size = 0;
   }
 
   swap(parentIdx, childIdx) {
@@ -37,7 +38,7 @@ class PriorityQueue {
     if (this.minHeap.length > 1) {
       this.enqueueHelper();
     }
-
+    this.size++;
     return this.minHeap;
   }
 
@@ -54,11 +55,54 @@ class PriorityQueue {
       parentIdx = Math.floor((childIdx - 1) / 2);
     }
   }
+
+  dequeue() {
+    if (!this.minHeap.length) {
+      return null;
+    }
+    const min = this.minHeap[0];
+    const max = this.minHeap.pop();
+    if (this.minHeap.length > 1) {
+      this.minHeap[0] = max;
+      this.sinkDown();
+    }
+    this.size--;
+    return min;
+  }
+
+  sinkDown() {
+    const length = this.minHeap.length;
+    let newRoot = this.minHeap[0];
+    let newRootIdx = 0;
+    while (true) {
+      let swapIdx;
+      let leftChildIdx = 2 * newRootIdx + 1;
+      let rightChildIdx = 2 * newRootIdx + 2;
+      let leftChild = this.minHeap[leftChildIdx];
+      let rightChild = this.minHeap[rightChildIdx];
+
+      if (leftChildIdx < length) {
+        if (leftChild.pri < newRoot.pri) {
+          swapIdx = leftChildIdx;
+        }
+      }
+
+      if (rightChildIdx < length) {
+        if (rightChild.pri < leftChild.pri && rightChild.pri < newRoot.pri) {
+          swapIdx = rightChildIdx;
+        }
+      }
+
+      if (!swapIdx) {
+        break;
+      }
+
+      this.swap(newRootIdx, swapIdx);
+      newRootIdx = swapIdx;
+    }
+  }
 }
 
-var ER = new PriorityQueue();
-ER.enqueue('flu', 5);
-ER.enqueue('corona', 3);
-ER.enqueue('heart Attack', 1);
-ER.enqueue('scratch', 7);
-ER.enqueue('hungry', 9);
+var pq = new PriorityQueue();
+
+export { pq };
