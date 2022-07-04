@@ -99,17 +99,73 @@ class WeightedGraph {
     return result;
   }
 
-  sumDistance(nodePathChaining, start) {}
+  sumDistance(nodePathChaining, start) {
+    let startNode = start;
+    let nextNode = nodePathChaining[startNode];
+    let sumDistance = 0;
+    while (nextNode) {
+      // console.log('while in sumDistance');
+      for (const neighbor of this.adjacencyList[startNode]) {
+        if (neighbor.node === nextNode) {
+          sumDistance += neighbor.weight;
+          break;
+        }
+      }
+      startNode = nextNode;
+      nextNode = nodePathChaining[startNode];
+    }
+    return sumDistance;
+  }
 
   findShortestPath(start, end) {
-    const pq = new PriorityQueue();
-    const visited = { [start]: true };
+    const visited = {};
     const nodePathChaining = {};
     const distanceFromStart = {};
+    const path = [];
 
-    const result = [];
+    for (const vtx in this.adjacencyList) {
+      nodePathChaining[vtx] = null;
+      if (vtx === start) {
+        pq.enqueue(vtx, 0);
+        distanceFromStart[start] = 0;
+      } else {
+        distanceFromStart[vtx] = Infinity;
+        pq.enqueue(vtx, Infinity);
+      }
+    }
 
-    return result;
+    while (pq.size) {
+      const targetVtx = pq.dequeue().val;
+      if (targetVtx === end) {
+        break;
+      }
+
+      visited[targetVtx] = true;
+
+      for (const neighbor of this.adjacencyList[targetVtx]) {
+        if (visited[neighbor.node]) {
+          continue;
+        } else {
+          nodePathChaining[neighbor.node] = targetVtx;
+          const newDistance = this.sumDistance(nodePathChaining, neighbor.node);
+          // console.log('for in while in shortest');
+          if (newDistance < distanceFromStart[neighbor.node]) {
+            distanceFromStart[neighbor.node] = newDistance;
+            pq.enqueue(neighbor.node, newDistance);
+          }
+        }
+      }
+    }
+
+    let firstNode = end;
+    let secondNode = nodePathChaining[firstNode];
+    while (secondNode) {
+      path.push(firstNode);
+      firstNode = secondNode;
+      secondNode = nodePathChaining[firstNode];
+    }
+
+    return path.concat(start).reverse();
   }
 }
 
@@ -129,6 +185,8 @@ weightedGraph.addEdge('d', 'f', 1);
 weightedGraph.addEdge('d', 'e', 3);
 weightedGraph.addEdge('f', 'e', 1);
 weightedGraph.addEdge('b', 'e', 3);
+
+console.log(weightedGraph.findShortestPath('a', 'e'));
 
 // console.log(weightedGraph);
 // console.log(weightedGraph.dfs('a'));
