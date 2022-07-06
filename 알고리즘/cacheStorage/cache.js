@@ -15,34 +15,27 @@
 
 function cacheStorage(size, orders) {
   const cacheMemory = Array.from({ length: size }, () => 0);
-  //   console.log(cacheMemory);
 
-  const swap = (indexA, indexB) => {
-    [cacheMemory[indexA], cacheMemory[indexB]] = [
-      cacheMemory[indexB],
-      cacheMemory[indexA],
-    ];
+  const pushBackFrom = ind => {
+    for (let i = ind; i > 0; i--) {
+      cacheMemory[i] = cacheMemory[i - 1];
+    }
   };
 
   orders.forEach(order => {
-    let swapIdx = null;
     const isCacheExist = cacheMemory.indexOf(order);
     if (isCacheExist > -1) {
-      swap(0, isCacheExist);
-      return;
+      pushBackFrom(isCacheExist);
+    } else {
+      pushBackFrom(cacheMemory.length - 1);
     }
-    for (let i = cacheMemory.length - 1; i > 0; i--) {
-      cacheMemory[i] = cacheMemory[i - 1];
-    }
-    // console.log(cacheMemory);
     cacheMemory[0] = order;
   });
 
-  console.log(cacheMemory);
+  return cacheMemory;
 }
 
 const size = 5;
-// const cacheOrder = [1, 2, 3, 2, 6, 2, 3, 5, 7];
-const cacheOrder = [1, 2, 3];
+const cacheOrder = [1, 2, 3, 2, 6, 2, 3, 5, 7];
 
 cacheStorage(size, cacheOrder); //7 5 3 2 6
