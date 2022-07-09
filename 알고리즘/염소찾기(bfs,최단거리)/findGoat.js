@@ -7,6 +7,11 @@ function findGoat(start, destination) {
   while (queue.length) {
     const parent = queue.shift();
 
+    console.log(parent);
+    if (parent === destination) {
+      break;
+    }
+
     for (const child of [parent - 1, parent + 1, parent + 5]) {
       if (result[child]) {
         continue;
@@ -18,8 +23,10 @@ function findGoat(start, destination) {
       }
     }
   }
-
+  console.log(result);
   return result[destination];
 }
 
 findGoat(5, 14);
+
+// console.log(1);
