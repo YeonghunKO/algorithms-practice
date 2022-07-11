@@ -26,12 +26,10 @@ function findPrime(num) {
       }
     }
 
-    if (arr.length) {
-      for (let i = 0; i < arr.length; i++) {
-        const subArr = arr.slice(0);
-        subArr.splice(i, 1);
-        combi(subArr, str + arr[i]);
-      }
+    for (let i = 0; i < arr.length; i++) {
+      const subArr = arr.slice(0);
+      subArr.splice(i, 1);
+      combi(subArr, str + arr[i]);
     }
   }
 
