@@ -31,6 +31,7 @@ function disguise(clothes) {
 
   console.log(answer);
 }
+
 disguise(clothes);
 
 function subSet(arr) {
