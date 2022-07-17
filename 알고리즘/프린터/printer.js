@@ -106,4 +106,6 @@ function printer(importances, targetLocation) {
   }
 }
 
+console.log('git lens!');
+
 console.log(printer(importances, targetLocation));
